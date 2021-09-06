@@ -19,3 +19,6 @@ RUN apt-get update && \
 # Add entrypoint
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
+
+# Specify volumes
+VOLUME ["/srv/attachments", "/srv/cache"]
