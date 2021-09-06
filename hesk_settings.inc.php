@@ -131,7 +131,7 @@ $hesk_settings['kb_related']=5;
 // ==> EMAIL
 
 // --> Email sending
-$hesk_settings['smtp']=getenv('HESK_SMTP') ?: 0;
+$hesk_settings['smtp']=getenv_number('HESK_SMTP') ?: 0;
 $hesk_settings['smtp_host_name']=getenv('HESK_SMTP_HOST_NAME') ?: 'mail.example.com';
 $hesk_settings['smtp_host_port']=getenv_number('HESK_SMTP_HOST_PORT') ?: 25;
 $hesk_settings['smtp_timeout']=getenv_number('HESK_SMTP_TIMEOUT') ?: 20;
@@ -154,15 +154,15 @@ $hesk_settings['pop3_user']='';
 $hesk_settings['pop3_password']='';
 
 // --> IMAP Fetching
-$hesk_settings['imap']=0;
-$hesk_settings['imap_job_wait']=15;
-$hesk_settings['imap_host_name']='mail.example.com';
-$hesk_settings['imap_host_port']=993;
-$hesk_settings['imap_enc']='ssl';
-$hesk_settings['imap_noval_cert']=0;
-$hesk_settings['imap_keep']=0;
-$hesk_settings['imap_user']='';
-$hesk_settings['imap_password']='';
+$hesk_settings['imap']=getenv_number('HESK_IMAP') ?? 0;
+$hesk_settings['imap_job_wait']=getenv_number('HESK_IMAP_JOB_WAIT') ?? 15;
+$hesk_settings['imap_host_name']=getenv('HESK_IMAP_HOST_NAME') ?? 'mail.example.com';
+$hesk_settings['imap_host_port']=getenv_number('HESK_IMAP_HOST_PORT') ?? 993;
+$hesk_settings['imap_enc']=getenv('HESK_IMAP_ENC') ?? 'ssl';
+$hesk_settings['imap_noval_cert']=getenv_number('HESK_IMAP_NOVAL_CERT') ?? 0;
+$hesk_settings['imap_keep']=getenv_number('HESK_IMAP_KEEP') ?? 0;
+$hesk_settings['imap_user']=getenv('HESK_IMAP_USER') ?? '';
+$hesk_settings['imap_password']=getenv('HESK_IMAP_PASSWORD') ?? '';
 
 // --> Email loops
 $hesk_settings['loop_hits']=5;
