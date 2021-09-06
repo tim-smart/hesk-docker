@@ -148,6 +148,12 @@ function hesk_newTicket($ticket)
 		$info[$k] = $v['use'] ? $ticket[$k] : '';
 	}
 
+    // Extra actions for achieving landmarks
+    if (in_array($info['id'], array(100, 1000, 10000)))
+    {
+        hesk_PMtoMainAdmin($info['id']);
+    }
+
     return hesk_ticketToPlain($info, 1);
 
 } // END hesk_newTicket()

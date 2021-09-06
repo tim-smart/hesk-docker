@@ -545,7 +545,6 @@ $hesk_settings[\'db_name\']=\'' . hesk_getProperty($set, 'db_name') . '\';
 $hesk_settings[\'db_user\']=\'' . hesk_getProperty($set, 'db_user') . '\';
 $hesk_settings[\'db_pass\']=\'' . hesk_getProperty($set, 'db_pass') . '\';
 $hesk_settings[\'db_pfix\']=\'' . hesk_getProperty($set, 'db_pfix') . '\';
-$hesk_settings[\'db_vrsn\']=' . hesk_getProperty($set, 'db_vrsn') . ';
 
 
 // ==> HELP DESK

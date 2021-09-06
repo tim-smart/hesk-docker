@@ -38,6 +38,25 @@ if ($hesk_settings['staff_ticket_formatting'] == 2) {
 }
 
 // Pre-populate fields
+
+// First, reset data if any query string value is present
+if (isset($_REQUEST['name']) ||
+    isset($_REQUEST['email']) ||
+    isset($_REQUEST['priority']) ||
+    isset($_REQUEST['subject']) ||
+    isset($_REQUEST['message']) ||
+    isset($_REQUEST['due_date']) ||
+    isset($_REQUEST['ticket_language'])
+    ) {
+    hesk_new_ticket_reset_data();
+}
+
+foreach ($hesk_settings['custom_fields'] as $k=>$v) {
+    if ($v['use'] && isset($_REQUEST[$k])) {
+        hesk_new_ticket_reset_data();
+    }
+}
+
 // Customer name
 if (isset($_REQUEST['name'])) {
 	$_SESSION['as_name'] = $_REQUEST['name'];
@@ -77,6 +96,16 @@ foreach ($hesk_settings['custom_fields'] as $k=>$v) {
 	if ($v['use'] && isset($_REQUEST[$k]) ) {
 		$_SESSION['as_'.$k] = $_REQUEST[$k];
 	}
+}
+
+// Due date
+if (isset($_REQUEST['due_date']) && preg_match("/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/", $_REQUEST['due_date'])) {
+    $_SESSION['as_due_date'] = $_REQUEST['due_date'];
+}
+
+// Ticket language
+if (isset($_REQUEST['ticket_language'])) {
+    $_SESSION['as_language'] = $_REQUEST['ticket_language'];
 }
 
 /* Varibles for coloring the fields in case of errors */
@@ -1072,3 +1101,34 @@ hesk_handle_messages();
 	require_once(HESK_PATH . 'inc/footer.inc.php');
 	exit();
 } // END print_select_category()
+
+
+function hesk_new_ticket_reset_data()
+{
+    global $hesk_settings;
+
+    // Already reset
+    if (isset($hesk_settings['POPULATE_DATA_RESET'])) {
+        return true;
+    }
+
+    hesk_cleanSessionVars('as_name');
+    hesk_cleanSessionVars('as_email');
+    hesk_cleanSessionVars('as_category');
+    hesk_cleanSessionVars('as_priority');
+    hesk_cleanSessionVars('as_subject');
+    hesk_cleanSessionVars('as_message');
+    hesk_cleanSessionVars('as_owner');
+    hesk_cleanSessionVars('as_notify');
+    hesk_cleanSessionVars('as_show');
+    hesk_cleanSessionVars('as_due_date');
+    hesk_cleanSessionVars('as_language');
+    foreach ($hesk_settings['custom_fields'] as $k=>$v) {
+        hesk_cleanSessionVars("as_$k");
+    }
+
+    $hesk_settings['POPULATE_DATA_RESET'] = true;
+
+    return true;
+
+} // END hesk_new_ticket_reset_data()

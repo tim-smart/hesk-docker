@@ -141,7 +141,7 @@ else
     $total = $totals['filtered']['all'];
 }
 
-if ($total > 0 || $is_quick_link)
+if (true)
 {
 
 	/* This query string will be used to browse pages */
@@ -782,10 +782,6 @@ else
     if (isset($is_search) || $href == 'find_tickets.php')
     {
         hesk_show_notice($hesklang['no_tickets_crit']);
-    }
-    else
-    {
-        echo '<p>&nbsp;<br />&nbsp;<b><i>'.$hesklang['no_tickets_open'].'</i></b><br />&nbsp;</p>';
     }
 }
 
