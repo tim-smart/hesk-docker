@@ -3,7 +3,7 @@
 function getenv_string($name) {
     $value = getenv($name);
 
-    if ($value) {
+    if ($value !== false) {
         return $value;
     }
 
@@ -13,7 +13,7 @@ function getenv_string($name) {
 function getenv_number($name) {
     $value = getenv($name);
 
-    if ($value) {
+    if ($value !== false) {
         return intval($value);
     }
 
